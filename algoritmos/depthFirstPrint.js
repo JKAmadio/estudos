@@ -9,7 +9,7 @@ function dfs(graph, initialNode) {
   let stack = [];
   stack.push(initialNode);
   graph[initialNode]['visited'] = true;
-  while (stack.length > 0){
+  while (stack.length > 0) {
     current = stack.pop();
     console.log(current)
     graph[current]['connections'].map(item => {
@@ -99,5 +99,4 @@ const graph = {
 
 console.log(graph)
 dfs(graph, 0);
-
 
