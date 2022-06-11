@@ -91,9 +91,9 @@ def depth_first_search(graph, initial_node):
     graph[initial_node]['visited'] = True
     while len(stack) > 0:
         current = stack.pop()
-        for item in graph[current]['connections']:
-            if (graph[item]['visited'] is False):
-                stack.append(item)
-                graph[item]['visited'] = True
+        for connection in graph[current]['connections']:
+            if (graph[connection]['visited'] is False):
+                stack.append(connection)
+                graph[connection]['visited'] = True
 
 depth_first_search(graph, 2)
