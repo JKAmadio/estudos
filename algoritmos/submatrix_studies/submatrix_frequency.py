@@ -57,6 +57,27 @@ def slice_matrix(matrix, submatrix):
             matrix_frequency += np.all(matrix_slice == submatrix)
     return matrix_frequency
 
+def set_matrix_unique_variants(submatrix):
+    all_variants = []
+    unique_variants = []
+    all_variants.append(submatrix)
+    all_variants.append(np.rot90(submatrix))
+    all_variants.append(np.rot90(np.rot90(submatrix)))
+    all_variants.append(np.rot90(np.rot90(np.rot90(submatrix))))
+    all_variants.append(np.fliplr(submatrix))
+    all_variants.append(np.flipud(submatrix))
+    unique_variants.append(submatrix)
+
+    for variant in all_variants:
+        i = 0
+        counter = 0
+        for i in range(len(unique_variants)):
+            if not (np.all(unique_variants[i] == variant)):
+                counter += 1
+        if (counter == len(unique_variants)):
+            unique_variants.append(variant)
+    return unique_variants
+
 def timer_brute_force(matrix, submatrix):
     start_time = time.time() 
     brute_force(matrix, submatrix)
