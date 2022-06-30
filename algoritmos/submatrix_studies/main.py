@@ -29,18 +29,32 @@ def get_time_spent_on_methods():
     plt.show()
 
 def get_frequency_submatrix():
-    submatrix = np.random.randint(0, 2, size=(3, 3))
-    matrix = np.random.randint(0, 2, size=(2000, 2000))
-    slice_matrix_frequency = submatrix_frequency.slice_matrix(matrix, submatrix)
-    print(submatrix)
-    print(slice_matrix_frequency)
+    frequencies = []
+    matrix = np.random.randint(0, 2, size=(80, 80))
+    all_variants_submatrix = submatrix_frequency.get_all_variants_of_matrix(2)
+    unique_variants_submatrix = submatrix_frequency.set_matrix_unique_variants(all_variants_submatrix)
+    for submatrix in unique_variants_submatrix:
+        slice_matrix_frequency = submatrix_frequency.slice_matrix(matrix, submatrix)
+        frequencies.append({
+            'submatrix': submatrix,
+            'frequency': slice_matrix_frequency
+        })
+    print(frequencies)
     print_grid(matrix)
+    print_hist(frequencies)
 
 def print_grid(matrix):
     fig, ax = plt.subplots()
     image = ax.imshow(matrix, cmap='bone')
     # plt.savefig(f'./matrix.png')
     plt.show(block=True)
+
+def print_hist(frequencies):
+    data_list = []
+    for item in frequencies:
+        data_list.append(item['frequency'])
+    plt.hist(data_list, 100, histtype='bar', color='black', label='black')
+    plt.show()
 
 get_frequency_submatrix()
 

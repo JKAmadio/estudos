@@ -17,6 +17,7 @@ Qual a frequencia de uma pequena matriz dentro de uma matriz maior
 '''
 import numpy as np
 import time
+from itertools import product
 start_time = time.time()
 
 matrix = np.array([
@@ -30,21 +31,13 @@ matrix = np.array([
 # matrix = np.random.randint(0, 2, size=(100,100))
 
 submatrix = np.array([
-        [1, 0, 1],
-        [1, 0, 1],
-        [1, 0, 1]
+        [0, 1],
+        [0, 1]
     ])
 
-def set_matrix_unique_variants(submatrix):
-    all_variants = []
+def set_matrix_unique_variants(all_variants):
     unique_variants = []
-    all_variants.append(submatrix)
-    all_variants.append(np.rot90(submatrix))
-    all_variants.append(np.rot90(np.rot90(submatrix)))
-    all_variants.append(np.rot90(np.rot90(np.rot90(submatrix))))
-    all_variants.append(np.fliplr(submatrix))
-    all_variants.append(np.flipud(submatrix))
-    unique_variants.append(submatrix)
+    unique_variants.append(all_variants[0])
 
     for variant in all_variants:
         i = 0
@@ -53,8 +46,27 @@ def set_matrix_unique_variants(submatrix):
             if not (np.all(unique_variants[i] == variant)):
                 counter += 1
         if (counter == len(unique_variants)):
-            unique_variants.append(variant)
+            unique_variants.append(variant) 
     return unique_variants
+
+def get_all_variants_of_matrix(matrix_size):
+    all_variants = []
+    if (matrix_size == 2):
+        products = product([0, 1], repeat=4)
+        for i in list(products):
+            lista = [list(i[:2]), list(i[2:])]
+            all_variants.append(np.array(lista))
+    return all_variants
+
+def get_rotate_and_flip_variants_of_matrix(matrix):
+    all_variants = []
+    all_variants.append(matrix)
+    all_variants.append(np.rot90(matrix))
+    all_variants.append(np.rot90(np.rot90(matrix)))
+    all_variants.append(np.rot90(np.rot90(np.rot90(matrix))))
+    all_variants.append(np.fliplr(matrix))
+    all_variants.append(np.flipud(matrix))
+    return all_variants
 
 def brute_force(matrix, submatrix):
     matrix_frequency = 0
@@ -73,12 +85,12 @@ def slice_matrix(matrix, submatrix):
     matrix_frequency = 0
     for i in range(matrix.shape[0] - submatrix.shape[0] + 1):
         for j in range(matrix.shape[1] - submatrix.shape[1] + 1):
-            submatrix_variants = set_matrix_unique_variants(submatrix)
+            submatrix_variants = get_rotate_and_flip_variants_of_matrix(submatrix)
+            submatrix_unique_variants = set_matrix_unique_variants(submatrix_variants)
             matrix_slice = matrix[i : (i + submatrix.shape[0]), j : (j + submatrix.shape[1])]
-            for variant in submatrix_variants:
+            for variant in submatrix_unique_variants:
                 matrix_frequency += np.all(matrix_slice == variant)
     return matrix_frequency
-
 
 def timer_brute_force(matrix, submatrix):
     start_time = time.time() 
