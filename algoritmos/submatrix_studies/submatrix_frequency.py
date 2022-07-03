@@ -62,6 +62,16 @@ def get_all_variants_of_matrix(matrix_size):
         for i in list(products):
             lista = [list(i[:3]), list(i[3:6]), list(i[6:])]
             all_variants.append(np.array(lista))
+    if (matrix_size == 4):
+        products = product([0, 1], repeat=16)
+        for i in list(products):
+            lista = [list(i[:4]), list(i[4:8]), list(i[8:12]), list(i[12:])]
+            all_variants.append(np.array(lista))
+    if (matrix_size == 5):
+        products = product([0, 1], repeat=25)
+        for i in list(products):
+            lista = [list(i[:5]), list(i[5:10]), list(i[10:15]), list(i[15:20]), list(i[20:])]
+            all_variants.append(np.array(lista))
     return all_variants
 
 def get_rotate_and_flip_variants_of_matrix(matrix):
