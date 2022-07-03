@@ -31,12 +31,17 @@ def get_time_spent_on_methods():
 def get_frequency_submatrix():
     frequencies = []
     matrix = np.random.randint(0, 2, size=(80, 80))
-    all_variants_submatrix = submatrix_frequency.get_all_variants_of_matrix(2)
+    all_variants_submatrix = submatrix_frequency.get_all_variants_of_matrix(3)
+    print('got all variants')
     unique_variants_submatrix = submatrix_frequency.set_matrix_unique_variants(all_variants_submatrix)
-    for submatrix in unique_variants_submatrix:
+    print('got unique variants')
+    print(len(unique_variants_submatrix))
+    print(len(all_variants_submatrix))
+    for index, submatrix in enumerate(unique_variants_submatrix):
         slice_matrix_frequency = submatrix_frequency.slice_matrix(matrix, submatrix)
+        print(f'{index} - matrix sliced')
         frequencies.append({
-            'submatrix': submatrix,
+            'submatrix': index,
             'frequency': slice_matrix_frequency
         })
     print(frequencies)
@@ -50,11 +55,12 @@ def print_grid(matrix):
     plt.show(block=True)
 
 def print_hist(frequencies):
-    data_list = []
+    frequency_list = []
+    submatrix_list = []
     for item in frequencies:
-        data_list.append(item['frequency'])
-    plt.hist(data_list, 100, histtype='bar', color='black', label='black')
+        frequency_list.append(item['frequency'])
+        submatrix_list.append(item['submatrix'])
+    plt.bar(submatrix_list, frequency_list, width=0.1, color='black', label='black')
     plt.show()
 
 get_frequency_submatrix()
-
