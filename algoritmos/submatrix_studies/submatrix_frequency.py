@@ -15,6 +15,7 @@ Qual a frequencia de uma pequena matriz dentro de uma matriz maior
 -----------------------------
 
 '''
+from webbrowser import get
 import numpy as np
 import time
 from itertools import product
@@ -55,6 +56,11 @@ def get_all_variants_of_matrix(matrix_size):
         products = product([0, 1], repeat=4)
         for i in list(products):
             lista = [list(i[:2]), list(i[2:])]
+            all_variants.append(np.array(lista))
+    if (matrix_size == 3):
+        products = product([0, 1], repeat=9)
+        for i in list(products):
+            lista = [list(i[:3]), list(i[3:6]), list(i[6:])]
             all_variants.append(np.array(lista))
     return all_variants
 
