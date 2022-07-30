@@ -35,13 +35,15 @@ class DataEntryForm(QWidget):
         # campo para descrição do gasto
         self.description_label = QLabel('Description')
         self.description_lineEdit = QLineEdit()
+        self.description_lineEdit.textChanged[str].connect(self.check_disable)
         self.right_layout.addWidget(self.description_label)
         self.right_layout.addWidget(self.description_lineEdit)
 
         # campo para valor do gasto
         self.price_label = QLabel('Price')
-        self.right_layout.addWidget(self.price_label)
         self.price_lineEdit = QLineEdit()
+        self.price_lineEdit.textChanged[str].connect(self.check_disable)
+        self.right_layout.addWidget(self.price_label)
         self.right_layout.addWidget(self.price_lineEdit)
 
         # botões de adicionar gasto e plotar gráfico
@@ -70,6 +72,7 @@ class DataEntryForm(QWidget):
         self.layout.addLayout(self.right_layout,50)
 
         self.setLayout(self.layout)
+        self.check_disable()
         self.fill_table()
 
 
@@ -100,6 +103,13 @@ class DataEntryForm(QWidget):
         # após inserção apagamos os campos
         self.description_lineEdit.setText('')
         self.price_lineEdit.setText('')
+
+
+    def check_disable(self):
+        if self.description_lineEdit.text() and self.price_lineEdit.text():
+            self.add_button.setEnabled(True)
+        else:
+            self.add_button.setEnabled(False)
 
 
 class MainWindow(QMainWindow):
