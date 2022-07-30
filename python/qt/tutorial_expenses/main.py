@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (
         QHBoxLayout, QVBoxLayout,
         QWidget, QTableWidget, QPushButton, QLineEdit, QLabel, QTableWidgetItem
     )
-from PyQt5.QtChart import QChartView, QChart
+from PyQt5.QtChart import QChartView, QChart, QPieSeries
 
 
 class DataEntryForm(QWidget):
@@ -52,6 +52,7 @@ class DataEntryForm(QWidget):
         self.add_button.clicked.connect(self.add_entry)
         self.plot_button = QPushButton('Plot')
         self.right_layout.addWidget(self.plot_button)
+        self.plot_button.clicked.connect(self.generate_chart)
 
         # gráfico dos gastos
         self.chartView = QChartView()
@@ -119,6 +120,20 @@ class DataEntryForm(QWidget):
 
         chart = QChart()
         self.chartView.setChart(chart)
+
+
+    def generate_chart(self):
+        series = QPieSeries()
+        for i in range(self.table.rowCount()):
+            text = self.table.item(i, 0).text()
+            val = float(self.table.item(i, 1).text().replace('R$ ', ''))
+            series.append(text, val)
+
+        chart = QChart()
+        chart.addSeries(series)
+        chart.legend()
+        self.chartView.setChart(chart)
+
 
 class MainWindow(QMainWindow):
     def __init__(self, widget):
