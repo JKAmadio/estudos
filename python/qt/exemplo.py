@@ -30,18 +30,21 @@ class Window(QMainWindow):
         font.setPixelSize(80)
 
         # criamos um widget de label (basicamente um campo de texto)
-        label = QLabel('OIEEEE')
-        label.setFont(font) # indicamos que queremos usar a fonte configurada anteriormente
-        label.setAlignment(Qt.AlignCenter) # indicamento que queremos centralizar
-        layout.addWidget(label) # inserimos o label no layout
+        self.label = QLabel('OIEEEE')
+        self.label.setFont(font) # indicamos que queremos usar a fonte configurada anteriormente
+        self.label.setAlignment(Qt.AlignCenter) # indicamento que queremos centralizar
+        layout.addWidget(self.label) # inserimos o label no layout
 
         botao = QPushButton('Click me!')
         botao.setFont(font)
-        botao.clicked.connect(printar)
+        botao.clicked.connect(self.muda_label)
         layout.addWidget(botao) # inserimos o botão no layout
 
         base.setLayout(layout) # indicamos qual o layout a ser utilizado pelo widget base
         self.setCentralWidget(base) # indicamos o widget principal dessa janela
+
+    def muda_label(self):
+        self.label.setText('Clicado!')
 
 window = Window() # criamos um widget que aceita funcionalidades de janelas
 window.show() # renderizamos a janela
