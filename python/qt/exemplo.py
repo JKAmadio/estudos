@@ -1,10 +1,19 @@
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFont, QAction
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QVBoxLayout,
-                               QPushButton)
+                               QPushButton, QMainWindow)
 app = QApplication()
+window = QMainWindow() # criamos um widget que aceita funcionalidades de janelas
 base = QWidget() # criamos um widget base que será composto por vários widget
 layout = QVBoxLayout() # escolhemos o layout que desejamos utilizar para posicionar os widgets internos
+
+menu = window.menuBar()
+file_menu = menu.addMenu('Menu')
+action = QAction('Ação')
+edit_menu = menu.addMenu('Editar')
+edit_action = QAction('Outra ação')
+file_menu.addAction(action)
+edit_menu.addAction(edit_action)
 
 # estabelecemos um tamanho de fonte
 font = QFont()
@@ -21,5 +30,6 @@ botao.setFont(font)
 layout.addWidget(botao) # inserimos o botão no layout
 
 base.setLayout(layout) # indicamos qual o layout a ser utilizado pelo widget base
-base.show()
+window.setCentralWidget(base) # indicamos o widget principal dessa janela
+window.show() # renderizamos a janela
 app.exec()
