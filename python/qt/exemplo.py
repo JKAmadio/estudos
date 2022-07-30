@@ -2,7 +2,13 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QAction
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QVBoxLayout,
                                QPushButton, QMainWindow)
+from qdarktheme import load_stylesheet
+
 app = QApplication()
+app.setStyleSheet(load_stylesheet())
+
+def printar():
+    print('botão clicado')
 
 # encapsulando a janela para poder eventualmente reduzir a dimensão do arquivo
 class Window(QMainWindow):
@@ -31,6 +37,7 @@ class Window(QMainWindow):
 
         botao = QPushButton('Click me!')
         botao.setFont(font)
+        botao.clicked.connect(printar)
         layout.addWidget(botao) # inserimos o botão no layout
 
         base.setLayout(layout) # indicamos qual o layout a ser utilizado pelo widget base
