@@ -61,6 +61,7 @@ class DataEntryForm(QWidget):
         self.right_layout.addWidget(self.clear_button)
         self.exit_button = QPushButton('Exit')
         self.right_layout.addWidget(self.exit_button)
+        self.exit_button.clicked.connect(lambda: app.exit())
 
         # insere a tabela no layout
         self.layout.addWidget(self.table, 50)
