@@ -3,7 +3,7 @@ from turtle import right
 from PyQt5.QtWidgets import (
         QApplication, QMainWindow, QAction, QHeaderView,
         QHBoxLayout, QVBoxLayout,
-        QWidget, QTableWidget, QPushButton, QLineEdit, QLabel
+        QWidget, QTableWidget, QPushButton, QLineEdit, QLabel, QTableWidgetItem
     )
 from PyQt5.QtChart import QChartView
 
@@ -68,6 +68,22 @@ class DataEntryForm(QWidget):
         self.layout.addLayout(self.right_layout,50)
 
         self.setLayout(self.layout)
+        self.fill_table()
+
+
+    def fill_table(self, data=None):
+        # se não houver nenhum input em data, a tabela deve ser preenchida com _data (dummy)
+        data = self._data if not data else data
+
+        for description, price in data.items():
+            descriptionItem = QTableWidgetItem(description)
+            priceItem = QTableWidgetItem(f'R$ {price:.02f}')
+            self.table.insertRow(self.items)
+            self.table.setItem(self.items, 0, descriptionItem)
+            self.table.setItem(self.items, 1, priceItem)
+            self.items += 1
+
+
 class MainWindow(QMainWindow):
     def __init__(self, widget):
         super().__init__()
