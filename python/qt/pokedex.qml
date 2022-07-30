@@ -25,6 +25,10 @@ ApplicationWindow {
             id: get_pokemon
             text: 'Get!'
             width: 150
+            onClicked: {
+                var fetch_return = ponte.fetch_image(pokemon_id_input.text)
+                pokemon_name.text = fetch_return
+            }
         }
     }
 
