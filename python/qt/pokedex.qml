@@ -27,7 +27,10 @@ ApplicationWindow {
             width: 150
             onClicked: {
                 var fetch_return = ponte.fetch_image(pokemon_id_input.text)
-                pokemon_name.text = fetch_return
+                pokemon_name.text = ''
+                pokemon_image.source = ''
+                pokemon_name.text = fetch_return[1]
+                pokemon_image.source = fetch_return[0]
             }
         }
     }
@@ -44,7 +47,13 @@ ApplicationWindow {
 
     Image {
         id: pokemon_image
-        width: 100
-        height: 100
+        cache: false
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: pokemon_name.bottom
+            topMargin: 5
+        }
+        width: 250
+        height: 250
     }
 }
