@@ -47,6 +47,7 @@ class DataEntryForm(QWidget):
         # botões de adicionar gasto e plotar gráfico
         self.add_button = QPushButton('Add')
         self.right_layout.addWidget(self.add_button)
+        self.add_button.clicked.connect(self.add_entry)
         self.plot_button = QPushButton('Plot')
         self.right_layout.addWidget(self.plot_button)
 
@@ -77,11 +78,27 @@ class DataEntryForm(QWidget):
 
         for description, price in data.items():
             descriptionItem = QTableWidgetItem(description)
-            priceItem = QTableWidgetItem(f'R$ {price:.02f}')
+            priceItem = QTableWidgetItem(f'R$ {int(price):.02f}')
             self.table.insertRow(self.items)
             self.table.setItem(self.items, 0, descriptionItem)
             self.table.setItem(self.items, 1, priceItem)
             self.items += 1
+
+
+    def add_entry(self):
+        description = self.description_lineEdit.text()
+        price = self.price_lineEdit.text()
+
+        descriptionItem = QTableWidgetItem(description)
+        priceItem = QTableWidgetItem(f'R$ {int(price):.02f}')
+        self.table.insertRow(self.items)
+        self.table.setItem(self.items, 0, descriptionItem)
+        self.table.setItem(self.items, 1, priceItem)
+        self.items += 1
+
+        # após inserção apagamos os campos
+        self.description_lineEdit.setText('')
+        self.price_lineEdit.setText('')
 
 
 class MainWindow(QMainWindow):
