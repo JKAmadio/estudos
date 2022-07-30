@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (
         QHBoxLayout, QVBoxLayout,
         QWidget, QTableWidget, QPushButton, QLineEdit, QLabel, QTableWidgetItem
     )
-from PyQt5.QtChart import QChartView
+from PyQt5.QtChart import QChartView, QChart
 
 
 class DataEntryForm(QWidget):
@@ -54,13 +54,14 @@ class DataEntryForm(QWidget):
         self.right_layout.addWidget(self.plot_button)
 
         # gráfico dos gastos
-        self.chart = QChartView()
-        self.right_layout.addWidget(self.chart)
+        self.chartView = QChartView()
+        self.right_layout.addWidget(self.chartView)
 
 
         # botões de limpar tudo e para sair da aplicação
         self.clear_button = QPushButton('Clear')
         self.right_layout.addWidget(self.clear_button)
+        self.clear_button.clicked.connect(self.reset_table)
         self.exit_button = QPushButton('Exit')
         self.right_layout.addWidget(self.exit_button)
         self.exit_button.clicked.connect(lambda: app.exit())
@@ -111,6 +112,13 @@ class DataEntryForm(QWidget):
         else:
             self.add_button.setEnabled(False)
 
+
+    def reset_table(self):
+        self.table.setRowCount(0)
+        self.items = 0
+
+        chart = QChart()
+        self.chartView.setChart(chart)
 
 class MainWindow(QMainWindow):
     def __init__(self, widget):
