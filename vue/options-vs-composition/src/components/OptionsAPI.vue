@@ -5,11 +5,17 @@
     </h2>
     <p>{{ counter }}</p>
     <button @click="handleClick">botão</button>
+    <OptionsKeyboard/>
   </div>
 </template>
 
 <script>
+import OptionsKeyboard from './OptionsKeyboard.vue'
 export default {
+  name: 'OptionsAPI',
+  components: {
+    OptionsKeyboard
+  },
   data() {
     return{
       counter: 0

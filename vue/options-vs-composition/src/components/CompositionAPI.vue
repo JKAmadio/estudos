@@ -1,5 +1,6 @@
 <script setup>
   import { ref } from 'vue';
+  import CompositionKeyboard from './CompositionKeyboard.vue';
 
   let counter = ref(0);
 
@@ -15,6 +16,7 @@
     </h2>
     <p>{{ counter }}</p>
     <button @click="handleClick">botão</button>
+    <CompositionKeyboard/>
   </div>
 </template>
 
