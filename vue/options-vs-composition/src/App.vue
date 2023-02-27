@@ -13,17 +13,23 @@
 
 <template>
   <main>
-    <header>
-      <button @click="changeVisibleAPI('options')">
+    <header class="space-x-4">
+      <button
+        :class="visibleAPI === 'options' ? 'font-bold underline underline-offset-4' : ''"
+        @click="changeVisibleAPI('options')"
+      >
         Options
       </button>
-      <button @click="changeVisibleAPI('composition')">
+      <button
+        :class="visibleAPI === 'composition' ? 'font-bold underline underline-offset-4' : ''"
+        @click="changeVisibleAPI('composition')"
+      >
         Composition
       </button>
     </header>
     <div>
       <OptionsAPI v-if="visibleAPI === 'options'"/>
-      <CompositionAPI  v-if="visibleAPI === 'composition'"/>
+      <CompositionAPI  v-else-if="visibleAPI === 'composition'"/>
     </div>
   </main>
 </template>
