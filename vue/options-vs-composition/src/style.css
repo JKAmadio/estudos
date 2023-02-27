@@ -2,3 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .button_filled_structure {
+    @apply py-2 px-4 border-2 border-solid rounded-md  
+  }
+
+  .button_filled_default {
+    @apply button_filled_structure border-white bg-white hover:bg-transparent text-black hover:text-white
+  }
+
+  .button_filled_inverted {
+    @apply button_filled_structure border-white bg-transparent hover:bg-white text-white hover:text-black
+  }
+}
+

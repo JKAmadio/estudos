@@ -1,29 +1,58 @@
 <template>
   <div>
-    <h2>
-      Options API
-    </h2>
-    <p>{{ counter }}</p>
-    <button @click="handleClick">botão</button>
-    <OptionsKeyboard/>
+    <OptionsGuessWord
+      :word="word"
+    />
+    <OptionsKeyboard
+      :disable="disableKeyboard"
+      @updateGuessedWord="updateGuessedWord($event)"
+      @checkGuessedWord="checkGuessedWord"
+      @deleteLastLetter="deleteLastLetter"
+    />
+    <p v-if="isGuessRight === true">PARABÉNS VOCÊ ACERTOU!</p>
+    <p v-else-if="isGuessRight === false">ESSA NÃO É A PALAVRA CERTA</p>
   </div>
 </template>
 
 <script>
 import OptionsKeyboard from './OptionsKeyboard.vue'
+import OptionsGuessWord from './OptionsGuessWord.vue'
+
 export default {
   name: 'OptionsAPI',
   components: {
-    OptionsKeyboard
+    OptionsKeyboard,
+    OptionsGuessWord
   },
   data() {
-    return{
-      counter: 0
+    return {
+      dailyWord: 'CASAL',
+      dailyWordLength: 0,
+      word: '',
+      isGuessRight: null
     };
   },
+  computed: {
+    disableKeyboard() {
+      return this.word.length >= this.dailyWordLength ? true : false
+    }
+  },
+  mounted() {
+    this.dailyWordLength = this.dailyWord.length
+  },
   methods: {
-    handleClick() {
-      this.counter = this.counter + 1;
+    updateGuessedWord(letter) {
+      this.word += letter;
+      this.isGuessRight = null;
+    },
+
+    deleteLastLetter() {
+      this.word = this.word.slice(0, -1);
+      this.isGuessRight = null;
+    },
+
+    checkGuessedWord() {
+      this.isGuessRight = this.word === this.dailyWord;
     }
   }
 }

@@ -1,22 +1,51 @@
 <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import CompositionKeyboard from './CompositionKeyboard.vue';
+  import CompositionGuessWord from './CompositionGuessWord.vue';
 
-  let counter = ref(0);
+  //game setup variables
+  let dailyWord = 'CASAL';
+  let dailyWordLength = dailyWord.length;
 
-  const handleClick = () => {
-    counter.value += 1;
+  //user interactions variables
+  let word = ref('');
+  let isGuessRight = ref(null);
+
+  /***********************************
+   * INTERAÇOES COM O TECLADO
+   **********************************/
+  function updateGuessedWord(letter) {
+    word.value += letter;
+    isGuessRight.value = null;
+  }
+
+  const disableKeyboard = computed(() => {
+    return word.value.length >= dailyWordLength ? true : false
+  })
+
+  function deleteLastLetter() {
+    word.value = word.value.slice(0, -1);
+    isGuessRight.value = null;
+  }
+
+  function checkGuessedWord() {
+    isGuessRight.value = word.value === dailyWord;
   }
 </script>
 
 <template>
   <div>
-    <h2>
-      Composition component
-    </h2>
-    <p>{{ counter }}</p>
-    <button @click="handleClick">botão</button>
-    <CompositionKeyboard/>
+    <CompositionGuessWord
+      :word="word"
+    />
+    <CompositionKeyboard
+      :disable="disableKeyboard"
+      @updateGuessedWord="updateGuessedWord($event)"
+      @checkGuessedWord="checkGuessedWord"
+      @deleteLastLetter="deleteLastLetter"
+    />
+    <p v-if="isGuessRight === true">PARABÉNS VOCÊ ACERTOU!</p>
+    <p v-else-if="isGuessRight === false">ESSA NÃO É A PALAVRA CERTA</p>
   </div>
 </template>
 
