@@ -2,9 +2,11 @@
   <div>
     <OptionsGuessWord
       :word="word"
+      :chosenLetterIndex="chosenLetterIndex"
+      @updateChosenLetterIndex="chosenLetterIndex = $event"
     />
     <OptionsKeyboard
-      :disable="disableKeyboard"
+      :disable="isGuessRight === true"
       @updateGuessedWord="updateGuessedWord($event)"
       @checkGuessedWord="checkGuessedWord"
       @deleteLastLetter="deleteLastLetter"
@@ -28,31 +30,57 @@ export default {
     return {
       dailyWord: 'CASAL',
       dailyWordLength: 0,
-      word: '',
+      word: '     ',
+      chosenLetterIndex: 0,
       isGuessRight: null
     };
-  },
-  computed: {
-    disableKeyboard() {
-      return this.word.length >= this.dailyWordLength ? true : false
-    }
   },
   mounted() {
     this.dailyWordLength = this.dailyWord.length
   },
   methods: {
     updateGuessedWord(letter) {
-      this.word += letter;
+      let newWord = '';
+      for (let index in this.word) {
+        Number(index) === this.chosenLetterIndex ?
+          newWord += letter :
+          newWord += this.word[index];
+      }
+      this.word = newWord;
+
+      this.moveToNextGuessedLetter();
+
+    // zeramos a variável para remover qualquer uma das respostas
       this.isGuessRight = null;
     },
 
     deleteLastLetter() {
-      this.word = this.word.slice(0, -1);
+      let newWord = '';
+      for (let index in this.word) {
+        Number(index) === this.chosenLetterIndex ?
+          newWord += ' ' :
+          newWord += this.word[index];
+      }
+      this.word = newWord;
+      
+      this.moveToPrevGuessedLetter();
+      
+      // zeramos a variável para remover qualquer uma das respostas
       this.isGuessRight = null;
     },
 
     checkGuessedWord() {
       this.isGuessRight = this.word === this.dailyWord;
+    },
+
+    moveToNextGuessedLetter() {
+      if (this.chosenLetterIndex < this.dailyWordLength -1)
+      this.chosenLetterIndex += 1;
+    },
+
+    moveToPrevGuessedLetter() {
+      if (this.chosenLetterIndex > 0)
+        this.chosenLetterIndex -= 1;
     }
   }
 }
