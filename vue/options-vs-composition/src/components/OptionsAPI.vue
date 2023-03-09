@@ -1,8 +1,9 @@
 <template>
   <div>
-    <OptionsGuessWord
-      :word="word"
+    <OptionsGuessedWords
+      :guessedWords="guessedWords"
       :chosenLetterIndex="chosenLetterIndex"
+      :userRound="userRound"
       @updateChosenLetterIndex="chosenLetterIndex = $event"
     />
     <OptionsKeyboard
@@ -12,41 +13,51 @@
       @deleteLastLetter="deleteLastLetter"
     />
     <p v-if="isGuessRight === true">PARABÉNS VOCÊ ACERTOU!</p>
-    <p v-else-if="isGuessRight === false">ESSA NÃO É A PALAVRA CERTA</p>
+    <p v-else-if="isGuessRight === false">SUAS CHANCES ACABARAM!</p>
   </div>
 </template>
 
 <script>
 import OptionsKeyboard from './OptionsKeyboard.vue'
-import OptionsGuessWord from './OptionsGuessWord.vue'
+import OptionsGuessedWords from './OptionsGuessedWords.vue'
 
 export default {
   name: 'OptionsAPI',
   components: {
     OptionsKeyboard,
-    OptionsGuessWord
+    OptionsGuessedWords
   },
   data() {
     return {
       dailyWord: 'CASAL',
       dailyWordLength: 0,
-      word: '     ',
+      totalRounds: 5,
+      userRound: 1,
+
       chosenLetterIndex: 0,
+      guessedWords: [
+        '     ',
+        '     ',
+        '     ',
+        '     ',
+        '     '
+      ],
       isGuessRight: null
     };
   },
   mounted() {
-    this.dailyWordLength = this.dailyWord.length
+    this.dailyWordLength = this.dailyWord.length;
   },
   methods: {
     updateGuessedWord(letter) {
+      let currentWordActive = this.guessedWords[this.userRound - 1];
       let newWord = '';
-      for (let index in this.word) {
+      for (let index in currentWordActive) {
         Number(index) === this.chosenLetterIndex ?
           newWord += letter :
-          newWord += this.word[index];
+          newWord += currentWordActive[index];
       }
-      this.word = newWord;
+      this.guessedWords[this.userRound - 1]= newWord;
 
       this.moveToNextGuessedLetter();
 
@@ -55,13 +66,14 @@ export default {
     },
 
     deleteLastLetter() {
+      let currentWordActive = this.guessedWords[this.userRound - 1];
       let newWord = '';
-      for (let index in this.word) {
+      for (let index in currentWordActive) {
         Number(index) === this.chosenLetterIndex ?
           newWord += ' ' :
-          newWord += this.word[index];
+          newWord += currentWordActive[index];
       }
-      this.word = newWord;
+      this.guessedWords[this.userRound - 1] = newWord;
       
       this.moveToPrevGuessedLetter();
       
@@ -70,7 +82,14 @@ export default {
     },
 
     checkGuessedWord() {
-      this.isGuessRight = this.word === this.dailyWord;
+      if (this.guessedWords.includes(this.dailyWord))
+        this.isGuessRight = true;
+      else if (this.userRound === this.totalRounds)
+        this.isGuessRight = false;
+      else {
+        this.userRound += 1;
+        this.chosenLetterIndex = 0;
+      }
     },
 
     moveToNextGuessedLetter() {

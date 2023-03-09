@@ -14,5 +14,9 @@
   .button_filled_inverted {
     @apply button_filled_structure border-white bg-transparent hover:bg-white text-white hover:text-black
   }
+
+  .button_filled_disabled {
+    @apply button_filled_structure border-white bg-white text-black opacity-10
+  }
 }
 

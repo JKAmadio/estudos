@@ -1,29 +1,38 @@
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref, reactive } from 'vue';
   import CompositionKeyboard from './CompositionKeyboard.vue';
-  import CompositionGuessWord from './CompositionGuessWord.vue';
+  import CompositionGuessedWords from './CompositionGuessedWords.vue';
 
   //game setup variables
   let dailyWord = 'CASAL';
   let dailyWordLength = dailyWord.length;
+  let totalRounds = 5;
+  let userRound = ref(1);
 
   //user interactions variables
-  let word = ref('     ');
   let chosenLetterIndex = ref(0);
+  let guessedWords = reactive([
+    '     ',
+    '     ',
+    '     ',
+    '     ',
+    '     ',
+  ])
   let isGuessRight = ref(null);
 
   /***********************************
    * INTERAÇOES COM O TECLADO
    **********************************/
   function updateGuessedWord(letter) {
+    let currentWordActive = guessedWords[userRound.value - 1];
     let newWord = '';
-    //se o index escolhido for igual ao index da letra na palavra substituimos a letra
-    for (let index in word.value) {
+    //se o index escolhido for igual ao index da letra na palavra substituimos pela letra escolhida
+    for (let index in currentWordActive) {
       Number(index) === chosenLetterIndex.value ?
         newWord += letter :
-        newWord += word.value[index];
+        newWord += currentWordActive[index];
     }
-    word.value = newWord;
+    guessedWords[userRound.value - 1] = newWord;
 
     moveToNextGuessedLetter();
 
@@ -32,14 +41,15 @@
   }
 
   function deleteLastLetter() {
+    let currentWordActive = guessedWords[userRound.value - 1];
     let newWord = '';
     // se o index escolhido for igual ao index da letra na palavra substituímos por um vazio
-    for (let index in word.value) {
+    for (let index in currentWordActive) {
       Number(index) === chosenLetterIndex.value ?
         newWord += ' ' :
-        newWord += word.value[index];
+        newWord += currentWordActive[index];
     }
-    word.value = newWord;
+    guessedWords[userRound.value - 1] = newWord;
     
     moveToPrevGuessedLetter();
 
@@ -51,7 +61,14 @@
    * INTERAÇOES PALAVRA ADIVINHADA
    **********************************/
   function checkGuessedWord() {
-    isGuessRight.value = word.value === dailyWord;
+    if (guessedWords.includes(dailyWord))
+      isGuessRight.value = true;
+    else if (userRound.value === totalRounds)
+      isGuessRight.value = false;
+    else {
+      userRound.value += 1;
+      chosenLetterIndex.value = 0;
+    }
   }
 
   function moveToNextGuessedLetter() {
@@ -71,19 +88,20 @@
 
 <template>
   <div>
-    <CompositionGuessWord
-      :word="word"
+    <CompositionGuessedWords
+      :guessedWords="guessedWords"
       :chosenLetterIndex="chosenLetterIndex"
+      :userRound="userRound"
       @updateChosenLetterIndex="chosenLetterIndex = $event"
     />
     <CompositionKeyboard
-      :disable="isGuessRight === true"
+      :disable="isGuessRight === true || isGuessRight === false"
       @updateGuessedWord="updateGuessedWord($event)"
       @checkGuessedWord="checkGuessedWord"
       @deleteLastLetter="deleteLastLetter"
     />
     <p v-if="isGuessRight === true">PARABÉNS VOCÊ ACERTOU!</p>
-    <p v-else-if="isGuessRight === false">ESSA NÃO É A PALAVRA CERTA</p>
+    <p v-else-if="isGuessRight === false">SUAS CHANCES ACABARAM!</p>
   </div>
 </template>
 

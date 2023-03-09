@@ -1,5 +1,4 @@
 <script setup>
-  import { ref } from 'vue';
   defineProps({
     word: {
       type: String,
@@ -15,6 +14,11 @@
       validator(value) {
         return (value >= 0 || value < 5);
       }
+    },
+
+    active: {
+      type: Boolean,
+      required: true
     }
   });
 
@@ -24,19 +28,20 @@
 </script>
 
 <template>
-  <div>
-    <p class="my-4 text-lg">Palavra digitada: {{ word }}</p>
-    <div class="grid grid-cols-5 gap-3 my-4">
-      <button
-        v-for="letter, index in word"
-        :key="index"
-        class="rounded-md bg-white"
-        :class="chosenLetterIndex === index ? 'bg-opacity-70 text-black' : 'bg-opacity-30 text-white'"
-        @click="emit('updateChosenLetterIndex', index)"
-      >
-        {{ letter }}.
-      </button>
-    </div>
+  <div class="grid grid-cols-5 gap-3 my-4">
+    <button
+      v-for="letter, index in word"
+      :key="index"
+      class="rounded-md bg-white"
+      :class="{
+        'opacity-10 text-gray-900' : !active,
+        'bg-opacity-70 text-black' : active && chosenLetterIndex === index,
+        'bg-opacity-30 text-white' : active && chosenLetterIndex !== index,
+      }"
+      @click="emit('updateChosenLetterIndex', index)"
+    >
+      {{ letter }}.
+    </button>
   </div>
 </template>
 

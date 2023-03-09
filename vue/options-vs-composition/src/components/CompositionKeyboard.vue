@@ -37,13 +37,15 @@
     </div>
     <div class="grid grid-cols-2 gap-3">
       <button
-        class="button_filled_default"
+        :class="disable ? 'button_filled_disabled' : 'button_filled_default'"
+        :disabled="disable"
         @click="emit('deleteLastLetter')"
       >
         Apagar
       </button>
       <button
-        class="button_filled_inverted"
+        :class="disable ? 'button_filled_disabled' : 'button_filled_inverted'"
+        :disabled="disable"
         @click="emit('checkGuessedWord')"
       >
         Enviar
