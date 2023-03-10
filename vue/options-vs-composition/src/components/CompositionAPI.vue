@@ -2,12 +2,34 @@
   import { ref, reactive } from 'vue';
   import CompositionKeyboard from './CompositionKeyboard.vue';
   import CompositionGuessedWords from './CompositionGuessedWords.vue';
+  import CompositionHeader from './CompositionHeader.vue';
 
   //game setup variables
   let dailyWord = 'CASAL';
   let dailyWordLength = dailyWord.length;
   let totalRounds = 5;
   let userRound = ref(1);
+  let currentLevel = ref(0);
+  let levels = [
+    {
+      'name': 'termo',
+      'numberOfWords': 1,
+      'numberOfGuesses': 6,
+      'correctAnswers': [ 'CASAL' ]
+    },
+    {
+      'name': 'dueto',
+      'numberOfWords': 2,
+      'numberOfGuesses': 7,
+      'correctAnswers': [ 'MARCA', 'SANCA' ]
+    },
+    {
+      'name': 'quarteto',
+      'numberOfWords': 4,
+      'numberOfGuesses': 9,
+      'correctAnswers': [ 'SOMAR', 'PLACA', 'LAVAR', 'TAMPA' ]
+    },
+  ]
 
   //user interactions variables
   let chosenLetterIndex = ref(0);
@@ -88,7 +110,14 @@
 
 <template>
   <div>
+    <CompositionHeader
+      :levels="levels"
+      :currentLevel ="currentLevel"
+      @updateCurrentLevel ="currentLevel = $event"
+    />
     <CompositionGuessedWords
+      v-for="n in levels[currentLevel]['numberOfWords']"
+      :key="n"
       :guessedWords="guessedWords"
       :chosenLetterIndex="chosenLetterIndex"
       :userRound="userRound"
