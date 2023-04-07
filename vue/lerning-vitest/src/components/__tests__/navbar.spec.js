@@ -22,5 +22,13 @@ describe('navbar', () => {
 
     expect(wrapper.vm.showLoginButton).toBe(false);
   });
+
+  it('onClick emit updateShowLogin', () => {
+    const wrapper = mount(Navbar)
+
+    wrapper.find('button').trigger('click');
+
+    expect(wrapper.emitted()).toHaveProperty('updateShowLogin');
+  })
 })
 
