@@ -3,7 +3,7 @@
     <Navbar
       :userEmail="user.email"
       :showLogin="showLogin"
-      @updateShowLogin="showLogin = !showLogin"
+      @updateShowLogin="methodUpdateShowLogin"
     />
     <Login
       v-if="showLogin"    
@@ -29,5 +29,10 @@ export default {
       }
     }
   },
+  methods: {
+    methodUpdateShowLogin() {
+      this.showLogin = !this.showLogin;
+    }
+  }
 }
 </script>
