@@ -2,7 +2,8 @@
   <div>
     <Navbar
       :userEmail="user.email"
-      @showLogin="showLogin = !showLogin"
+      :showLogin="showLogin"
+      @updateShowLogin="showLogin = !showLogin"
     />
     <Login
       v-if="showLogin"    
