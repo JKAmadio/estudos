@@ -22,7 +22,7 @@
       <button
         type="submit"
         class="test_button mt-3 px-6 py-2 border-2 border-solid border-green-700 rounded-md bg-green-700 hover:bg-transparent"
-        @click="sendLoginRequest"
+        @click.prevent="sendLoginRequest"
       >
         Entrar
       </button>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { existingUsers } from '../data.js';
 export default {
   props: {
     user: { type: Object, required: true }
@@ -40,29 +41,35 @@ export default {
   data() {
     return {
       'errors': {
-        'email': false,
-        'password': false
+        'credentials': {
+          'email': false,
+          'password': false
+        },
+        'wrongCredential': false
       }
     }
   },
+  emits: [
+    'updateIsLogged'
+  ],
   methods: {
     sendLoginRequest() {
-      this.checkEmailFormat();
-      this.checkPasswordFormat();
+      if (this.checkInputsFormat()) {
+        const currentUser = existingUsers.filter(existingUser => existingUser.email === this.user.email && existingUser.password === this.user.password)
+        if (currentUser.length) {
+          this.errors.wrongCredential = false;
+          this.$emit('updateIsLogged', true);
+        }
+        else
+          this.errors.wrongCredential = true;
+      }
     },
 
-    checkEmailFormat() {
-      if (!this.user.email.includes('@'))
-        this.errors.email = true;
-      else
-        this.errors.email = false;
-    },
+    checkInputsFormat() {
+      this.errors.credentials.email = !this.user.email.includes('@');
+      this.errors.credentials.password = this.user.password.length < 8;
 
-    checkPasswordFormat() {
-      if (this.user.password.length < 8)
-        this.errors.password = true;
-      else
-        this.errors.password = false;
+      return Object.values(this.errors.credentials).every(item => item !== true);
     }
   }
 }

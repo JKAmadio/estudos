@@ -6,9 +6,13 @@
       @updateShowLogin="methodUpdateShowLogin"
     />
     <Login
-      v-if="showLogin"    
+      v-if="!isLogged && showLogin"    
       :user="user"
+      @updateIsLogged="isLogged = true"
     />
+    <div v-if="isLogged">
+      you are logged
+    </div>
   </div>
 </template>
 
@@ -23,6 +27,7 @@ export default {
   data() {
     return {
       showLogin: false,
+      isLogged: false,
       user: {
         email: '',
         password: ''
