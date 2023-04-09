@@ -23,10 +23,14 @@ describe('navbar', () => {
     expect(wrapper.vm.showLoginButton).toBe(false);
   });
 
-  it('onClick emit updateShowLogin', () => {
-    const wrapper = mount(Navbar)
+  it('onClick emit updateShowLogin', async () => {
+    const wrapper = mount(Navbar, {
+      props: {
+        showLogin: false 
+      }
+    })
 
-    wrapper.find('button').trigger('click');
+    await wrapper.find('button').trigger('click');
 
     expect(wrapper.emitted()).toHaveProperty('updateShowLogin');
   })
