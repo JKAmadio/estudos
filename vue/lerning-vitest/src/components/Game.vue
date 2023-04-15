@@ -10,22 +10,24 @@
       :user="user"
       @updateIsLogged="isLogged = true"
     />
-    <div v-if="isLogged">
-      you are logged
-    </div>
+    <Tiles
+    />
   </div>
 </template>
 
 <script>
 import Navbar from './Navbar.vue'
 import Login from './Login.vue'
+import Tiles from './Tiles.vue'
 export default {
   components: {
     Login,
-    Navbar
+    Navbar,
+    Tiles
   },
   data() {
     return {
+      // user
       showLogin: false,
       isLogged: false,
       user: {
