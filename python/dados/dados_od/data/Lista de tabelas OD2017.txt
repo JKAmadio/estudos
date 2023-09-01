@@ -1,0 +1,74 @@
+Tabelas com dados gerais da Pesquisa OD 2017, nas 517 zonas de pesquisa
+
+
+
+Tabela 01 - Dados Gerais – Domicílios, Famílias, População, Matrículas Escolares, Empregos, Automóveis Particulares, Viagens Produzidas, Viagens Atraídas e Área Total por Zona de Pesquisa - RMSP – 2017
+
+Tabela 02 - População por Faixa Etária e Zona de Residência – RMSP – 2017
+
+Tabela 03 - População por Grau de Instrução e Zona de Residência – RMSP – 2017
+
+Tabela 04 - População por Gênero e Zona de Residência – RMSP – 2017
+
+Tabela 05 - População por Faixa de Renda Familiar Mensal e Zona de Residência – RMSP – 2017
+
+Tabela 06- Renda Total, Renda Média Familiar, Renda per Capita e Renda Mediana Familiar por Zona de Residência – RMSP – 2017
+
+Tabela 07 - Famílias por Número de Automóveis Particulares e Zona de Residência – RMSP – 2017
+
+Tabela 08 - População que Trabalha por Vínculo Empregatício do Primeiro Trabalho e Zona de Residência – RMSP – 2017
+
+Tabela 09 - População por Condição de Atividade e Zona de Residência – RMSP – 2017
+Tabela 10 - Matrículas Escolares por Tipo de Estabelecimento e Zona de Escola – RMSP – 2017
+
+Tabela 11- Empregos por Setor de Atividade e Zona de Emprego – RMSP – 2017
+
+Tabela 12 - Empregos por Classe de Atividade e Zona de Emprego – RMSP – 2017
+
+Tabela 13 - Empregos por Vínculo Empregatício e Zona de Emprego – RMSP – 2017
+
+Tabela 14 - Empregos em Endereço Fixo, na Própria Residência e Sem Endereço Fixo por Zona de Emprego – RMSP – 2017
+
+Tabela 15 - Empregos com Trabalho Externo ou Interno por Zona de Emprego – RMSP – 2017
+
+Tabela 16 - Viagens Diárias Produzidas por Modo Principal e Zona de Origem – RMSP – 2017
+
+Tabela 17 - Viagens Diárias Produzidas por Tipo e Zona de Origem – RMSP –2017
+
+Tabela 18 - Viagens Diárias Produzidas por Motivo e Zona de Origem – RMSP –2017
+
+Tabela 18a - Viagens Diárias Produzidas por Motivo no Destino e Zona de Origem – RMSP –2017
+
+Tabela 19 - Viagens Diárias Produzidas a Pé por Razão de Escolha do Modo e Zona de Origem – RMSP – 2017
+
+Tabela 20 - Tempo Médio das Viagem Produzidas por Tipo de Viagem e Zona de Origem – RMSP – 2017
+
+Tabela 21 - Viagens Diárias Atraídas por Modo Principal e Zona de Destino – RMSP – 2017
+
+Tabela 22 - Viagens Diárias Atraídas por Tipo e Zona de Destino – RMSP – 2017
+
+Tabela 23 - Viagens Diárias Atraídas por Motivo e Zona de Destino – RMSP – 2017
+
+Tabela 23a - Viagens Diárias Atraídas por Motivo no Destino e Zona de Destino – RMSP – 2017
+
+Tabela 24 - Matriz de Viagens Diárias por Transporte Coletivo em 517 Zonas OD
+Viagens Diárias por Modo Coletivo e Zonas de Origem e Destino – RMSP – 2017
+
+Tabela 25 - Matriz de Viagens Diárias por Transporte Individual em 517 Zonas 
+Viagens Diárias por Modo Individual e Zonas de Origem e Destino – RMSP – 2017
+
+Tabela 26 - Matriz de Viagens Diárias por Modo Motorizado em 517 Zonas OD
+Viagens Diárias Motorizadas por Zonas de Origem e Destino – RMSP – 2017
+
+Tabela 27 - Matriz de Viagens Diárias a Pé em 517 Zonas OD
+Viagens Diárias a Pé por Zonas de Origem e Destino – RMSP – 2017
+
+Tabela 28 - Matriz de Viagens Diárias por Bicicleta em 517 Zonas OD
+Viagens Diárias por Bicicleta e Zonas de Origem e Destino – RMSP – 2017
+
+Tabela 29 - Matriz de Viagens Diárias por Modo Não-Motorizado em 517 Zonas OD
+Viagens Diárias Não-Motorizadas por Zonas de Origem e Destino – RMSP – 2017
+
+Tabela 30 - Matriz de Viagens Diárias Totais em 517 Zonas OD
+Viagens Diárias Totais por Zonas de Origem e Destino – RMSP – 2017 
+
